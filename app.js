@@ -1,19 +1,11 @@
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
-const fs = require('fs/promises');
-const moment = require('moment')
-
+const serverLog =  require('./.public/serverLog')
 const contactsRouter = require('./routes/api/contacts')
 
 const app = express()
-
-app.use(async (req, res, next) => {
-  const { method, url } = req;
-  const date = moment().format("DD-MM-YYYY_hh:mm:ss");
-  await fs.appendFile(".public/server.log", `\n${method} ${url} ${date}`);
-  next();
-})
+app.use(serverLog);
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
