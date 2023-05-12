@@ -7,6 +7,7 @@ const {
 } = require("../models/contacts");
 
 const { addScema, updateScema } = require("../utils/contactAddScema");
+const { HttpError } = require("../helpers");
 
 const getContact = async (req, res) => {
   try {
@@ -19,24 +20,21 @@ const getContact = async (req, res) => {
   }
 };
 
-const getById = async (req, res) => {
+const getById = async (req, res, next) => {
   try {
     const id = req.params.contactId;
     const result = await getContactById(id);
     if (!result) {
-      return res.status(404).json({
-        message: `Not found ${id}`,
-      });
+   throw HttpError(404, "Not found!!");
     }
     res.json(result);
   } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-    });
+   next(error);
+   
   }
 };
 
-const postContact = async (req, res) => {
+const postContact = async (req, res, next) => {
   try {
     const { name, email, phone } = req.body;
     const newContact = { name, email, phone };
@@ -49,13 +47,12 @@ const postContact = async (req, res) => {
     const result = await addContact(newContact);
     res.status(201).json({ result });
   } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-    });
+   next(error);
+   
   }
 };
 
-const deleteContactById = async (req, res) => {
+const deleteContactById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const result = await removeContact(contactId);
@@ -63,15 +60,13 @@ const deleteContactById = async (req, res) => {
       res.status(200).json({ message: "contact deleted" });
       return;
     }
-    res.status(404).json({ message: "Not found" });
+    throw HttpError(404, "Not found!");
   } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-    });
+     next(error);
   }
 };
 
-const changeContactById = async (req, res) => {
+const changeContactById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
 
@@ -87,13 +82,12 @@ const changeContactById = async (req, res) => {
 
     const result = await updateContact(contactId, body);
     if (!result) {
-      res.status(404).json({ message: "Not found" });
+      throw HttpError(404, "Not found");
     }
     res.status(200).json({ result });
   } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-    });
+     next(error);
+    
   }
 };
 
