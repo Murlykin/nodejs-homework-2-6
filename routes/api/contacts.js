@@ -6,6 +6,11 @@ const {
   deleteContactById,
   changeContactById,
 } = require("../../controllers/contactControllers");
+const {
+  addContactValidation,
+ 
+} = require('../../utils/contactAddScema') 
+
 
 const router = express.Router();
 
@@ -13,7 +18,7 @@ router.get("/", getContact);
 
 router.get("/:contactId", getById);
 
-router.post("/", postContact);
+router.post("/", addContactValidation, postContact);
 
 router.delete("/:contactId", deleteContactById);
 

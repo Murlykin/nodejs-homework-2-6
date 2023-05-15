@@ -6,7 +6,7 @@ const {
   updateContact,
 } = require("../models/contacts");
 
-const { addScema, updateScema } = require("../utils/contactAddScema");
+const { addScema } = require("../utils/contactAddScema");
 const { HttpError } = require("../helpers");
 
 const getContact = async (req, res) => {
@@ -69,20 +69,10 @@ const deleteContactById = async (req, res, next) => {
 const changeContactById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-
     const body = req.body;
-    if (!body) {
-      return res.status(400).json({ message: "missing fields" });
-    }
-
-    const { error } = updateScema.validate(body);
-    if (error) {
-      return res.status(400).json({ message: "error in the fields" });
-    }
-
     const result = await updateContact(contactId, body);
     if (!result) {
-      throw HttpError(404, "Not found");
+      throw HttpError(400, "missing fields");
     }
     res.status(200).json({ result });
   } catch (error) {
