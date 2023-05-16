@@ -45,7 +45,7 @@ const postContact = async (req, res, next) => {
       return;
     }
     const result = await addContact(newContact);
-    res.status(201).json({ result });
+    res.status(201).json(result);
   } catch (error) {
    next(error);
    
@@ -74,7 +74,7 @@ const changeContactById = async (req, res, next) => {
     if (!result) {
       throw HttpError(400, "missing fields");
     }
-    res.status(200).json({ result });
+    res.status(200).json(result);
   } catch (error) {
      next(error);
     
