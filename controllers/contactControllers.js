@@ -41,7 +41,7 @@ const postContact = async (req, res, next) => {
     const { error } = addScema.validate(newContact);
 
     if (error) {
-      res.status(400).json({ message: "missing required name field" });
+      res.status(400).json({ message: `missing required ${error.details[0].path[0]} field!!!`});
       return;
     }
     const result = await addContact(newContact);

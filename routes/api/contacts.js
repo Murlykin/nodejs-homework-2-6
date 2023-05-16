@@ -7,9 +7,10 @@ const {
   changeContactById,
 } = require("../../controllers/contactControllers");
 const {
-  addContactValidation,
+  noBody ,
+  validateBody,
  
-} = require('../../utils/contactAddScema') 
+} = require('../../middlewares/middlewares'); 
 
 
 const router = express.Router();
@@ -18,10 +19,10 @@ router.get("/", getContact);
 
 router.get("/:contactId", getById);
 
-router.post("/", addContactValidation, postContact);
+router.post("/", noBody, validateBody, postContact);
 
 router.delete("/:contactId", deleteContactById);
 
-router.put("/:contactId", changeContactById);
+router.put("/:contactId", noBody, validateBody, changeContactById);
 
 module.exports = router;
