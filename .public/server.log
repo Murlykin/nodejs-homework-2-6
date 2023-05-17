@@ -308,3 +308,4 @@ PUT /api/contacts/;lk;l;j 16-05-2023_02:50:22
 PUT /api/contacts/;lk;l;j 16-05-2023_02:55:01
 PUT /api/contacts/;lk;l;j 16-05-2023_02:56:15
 PUT /api/contacts/;lk;l;j 16-05-2023_02:56:25
+GET /api/contacts/ 17-05-2023_02:05:00
