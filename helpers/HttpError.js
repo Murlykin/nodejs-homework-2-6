@@ -3,10 +3,7 @@ const HttpError = (status, message) => {
   error.status = status;
   return error;
 };
-const handleMongooseError = (error, data, next) => {
-  error.status = 400;
-  next();
-};
 
 
-module.exports = { HttpError, handleMongooseError };
+
+module.exports = { HttpError };
