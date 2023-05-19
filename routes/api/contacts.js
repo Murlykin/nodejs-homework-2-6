@@ -3,26 +3,25 @@ const {
   getContact,
   getById,
   postContact,
-  // deleteContactById,
-  // changeContactById,
+  deleteContactById,
+  changeContactById,
+  updateStatusContact,
 } = require("../../controllers/contactControllers");
-// const {
-//   noBody ,
-//   validateBody,
- 
-// } = require('../../middlewares/middlewares'); 
+const { isValidId, validateBody, validateFavorite,  noBody } = require("../../middlewares/middlewares")
 
 
 const router = express.Router();
 
 router.get("/", getContact);
 
-router.get("/:contactId", getById);
+router.get("/:contactId", isValidId, getById);
 
 router.post("/", postContact);
 
-// router.delete("/:contactId", deleteContactById);
+router.delete("/:contactId", deleteContactById);
 
-// router.put("/:contactId", noBody, validateBody, changeContactById);
+router.put("/:contactId", isValidId, validateBody, noBody, changeContactById);
+
+router.patch("/:contactId/favorite", validateFavorite, updateStatusContact);
 
 module.exports = router;

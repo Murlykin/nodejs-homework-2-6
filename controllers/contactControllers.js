@@ -47,39 +47,56 @@ const postContact = async (req, res, next) => {
   }
 };
 
-// const deleteContactById = async (req, res, next) => {
-//   try {
-//     const { contactId } = req.params;
-//     const result = await Contact.findById(contactId);
-//     if (result) {
-//       res.status(200).json({ message: "contact deleted" });
-//       return;
-//     }
-//     throw HttpError(404, "Not found!");
-//   } catch (error) {
-//      next(error);
-//   }
-// };
+const deleteContactById = async (req, res, next) => {
+  try {
+    const { contactId } = req.params;
+    const result = await Contact.findByIdAndRemove(contactId);
+    if (result) {
+      res.status(200).json({ message: "contact deleted" });
+      return;
+    }
+    throw HttpError(404, "Not found!");
+  } catch (error) {
+     next(error);
+  }
+};
 
-// const changeContactById = async (req, res, next) => {
-//   try {
-//     const { contactId } = req.params;
-//     const body = req.body;
-//     const result = await updateContact(contactId, body);
-//     if (!result) {
-//       throw HttpError(400, "missing fields");
-//     }
-//     res.status(200).json(result);
-//   } catch (error) {
-//      next(error);
+const changeContactById = async (req, res, next) => {
+  try {
+    const { contactId } = req.params;
+    const body = req.body;
+    const result = await Contact.findByIdAndUpdate(contactId, body, {new: true});
+    if (!result) {
+      throw HttpError(400, "missing fields");
+    }
+    res.status(200).json(result);
+  } catch (error) {
+     next(error);
     
-//   }
-// };
+  }
+};
+
+const updateStatusContact = async (req, res, next) => {
+  try {
+    const { contactId } = req.params;
+    const body = req.body;
+    const result = await Contact.findByIdAndUpdate(contactId, body, {new: true});
+    if (!result) {
+      throw HttpError(400, "missing fields");
+    }
+    res.status(200).json(result);
+  } catch (error) {
+     next(error);
+    
+  }
+};
+
 
 module.exports = {
   getContact,
   getById,
   postContact,
-  // deleteContactById,
-  // changeContactById,
+  deleteContactById,
+  changeContactById,
+  updateStatusContact,
 };

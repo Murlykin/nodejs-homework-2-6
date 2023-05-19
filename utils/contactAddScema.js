@@ -10,5 +10,5 @@ const addScema = Joi.object({
 );
 
 module.exports = {
-  addScema,
+  addScema
 };
