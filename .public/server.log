@@ -477,3 +477,6 @@ PATCH /api/contacts/64628ace9a00708315c5d53d 19-05-2023_05:10:13
 PATCH /api/contacts/64628ace9a00708315c5d53d/favorite 19-05-2023_05:10:36
 PATCH /api/contacts/64628ace9a00708315c5d753d/favorite 19-05-2023_05:11:11
 PATCH /api/contacts/64628ace9a007083155d753d/favorite 19-05-2023_05:11:18
+PATCH /api/contacts/64628ace9a007083155d753d/favorite 19-05-2023_05:12:30
+PATCH /api/contacts/64628ace9a007083155d753d/favorite 19-05-2023_05:12:40
+PATCH /api/contacts/64628ace9a007083155d753d/favorite 19-05-2023_05:13:29
