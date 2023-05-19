@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   getContact,
-  // getById,
+  getById,
   postContact,
   // deleteContactById,
   // changeContactById,
@@ -17,7 +17,7 @@ const router = express.Router();
 
 router.get("/", getContact);
 
-// router.get("/:contactId", getById);
+router.get("/:contactId", getById);
 
 router.post("/", postContact);
 

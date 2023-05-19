@@ -1,7 +1,7 @@
 const Contact = require('../models/contact');
 
 const { addScema } = require("../utils/contactAddScema");
-// const { HttpError } = require("../helpers");
+const { HttpError } = require("../helpers");
 
 const getContact = async (req, res) => {
   try {
@@ -14,19 +14,19 @@ const getContact = async (req, res) => {
   }
 };
 
-// const getById = async (req, res, next) => {
-//   try {
-//     const id = req.params.contactId;
-//     const result = await getContactById(id);
-//     if (!result) {
-//    throw HttpError(404, "Not found!!");
-//     }
-//     res.json(result);
-//   } catch (error) {
-//    next(error);
+const getById = async (req, res, next) => {
+  try {
+    const id = req.params.contactId;
+    const result = await Contact.findById(id);
+    if (!result) {
+   throw HttpError(404, "Not found!!");
+    }
+    res.json(result);
+  } catch (error) {
+   next(error);
    
-//   }
-// };
+  }
+};
 
 
 const postContact = async (req, res, next) => {
@@ -50,7 +50,7 @@ const postContact = async (req, res, next) => {
 // const deleteContactById = async (req, res, next) => {
 //   try {
 //     const { contactId } = req.params;
-//     const result = await removeContact(contactId);
+//     const result = await Contact.findById(contactId);
 //     if (result) {
 //       res.status(200).json({ message: "contact deleted" });
 //       return;
@@ -78,7 +78,7 @@ const postContact = async (req, res, next) => {
 
 module.exports = {
   getContact,
-  // getById,
+  getById,
   postContact,
   // deleteContactById,
   // changeContactById,
