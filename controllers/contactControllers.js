@@ -1,6 +1,6 @@
 const Contact = require('../models/contact');
 
-const { addScema } = require("../utils/contactAddScema");
+const { addScema, favoriteSchema } = require("../utils/contactAddScema");
 const { HttpError } = require("../helpers");
 
 const getContact = async (req, res) => {
@@ -31,8 +31,8 @@ const getById = async (req, res, next) => {
 
 const postContact = async (req, res, next) => {
   try {
-    const { name, email, phone,  favorite } = req.body;
-    const newContact = { name, email, phone,  favorite };
+    const { name, email, phone, favorite } = req.body;
+    const newContact = { name, email, phone, favorite };
     const { error } = addScema.validate(newContact);
 
     if (error) {
@@ -67,7 +67,7 @@ const changeContactById = async (req, res, next) => {
     const body = req.body;
     const result = await Contact.findByIdAndUpdate(contactId, body, {new: true});
     if (!result) {
-      throw HttpError(400, "missing fields");
+      throw HttpError(404, 'Not found');
     }
     res.status(200).json(result);
   } catch (error) {
@@ -78,11 +78,21 @@ const changeContactById = async (req, res, next) => {
 
 const updateStatusContact = async (req, res, next) => {
   try {
+
     const { contactId } = req.params;
     const body = req.body;
+    const { error } = favoriteSchema.validate(body);
+
+
+ if (error) {
+      res.status(400).json({ message: `missing field ${error.details[0].path[0]} `});
+      return;
+    }
+
+
     const result = await Contact.findByIdAndUpdate(contactId, body, {new: true});
     if (!result) {
-      throw HttpError(400, "missing fields");
+      throw HttpError(404, 'Not found');
     }
     res.status(200).json(result);
   } catch (error) {
