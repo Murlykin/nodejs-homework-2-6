@@ -9,7 +9,6 @@ const {
 } = require("../../controllers/contactControllers");
 const { isValidId, validateBody, validateFavorite, noBody } = require("../../middlewares/middlewares")
 
-
 const router = express.Router();
 
 router.get("/", getContact);

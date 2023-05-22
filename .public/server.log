@@ -738,3 +738,4 @@ PATCH /api/contacts/6468fb7e187f7027470a8af56/favorite 20-05-2023_08:03:29
 PATCH /api/contacts/6468fb7e187f7027470a8af5/favorite 20-05-2023_08:03:41
 PATCH /api/contacts/6468fb7e187f7027470a8af5/favorite 20-05-2023_08:03:49
 PATCH /api/contacts/6468fb7e187f7027470a8afr5/favorite 20-05-2023_08:03:57
+GET /favicon.ico 22-05-2023_12:13:42

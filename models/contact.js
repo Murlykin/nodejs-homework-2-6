@@ -20,7 +20,6 @@ const contactSchema = new Schema(
   { versionKey: false,  }
   );
 
-
 contactSchema.post("save", (error, data, next) => {
     error.status = 400;
     next();
