@@ -7,7 +7,10 @@ const {
   changeContactById,
   updateStatusContact,
 } = require("../../controllers/contactControllers");
-const { isValidId, validateBody, validateFavorite, noBody } = require("../../middlewares/middlewares")
+const { isValidId, validateFavorite, noBody } = require("../../middlewares/middlewares")
+
+const validateBody = require("../../middlewares/validateBody")
+
 
 const router = express.Router();
 
