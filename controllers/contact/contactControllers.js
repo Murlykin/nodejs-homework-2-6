@@ -1,17 +1,21 @@
-const Contact = require("../models/contact");
-const {  favoriteSchema } = require("../utils/contactAddScema");
-const { HttpError } = require("../helpers");
+const Contact = require("../../models/contact");
+const { favoriteSchema } = require("../../utils/contactAddScema");
+const { HttpError } = require("../../helpers");
 
 const getContact = async (req, res) => {
   const { _id: owner } = req.user;
   const { page = 1, limit = 20, favorite = true } = req.query;
   const skip = (page - 1) * limit;
   try {
-    const result = await Contact.find({ owner, favorite }, '-createdAt -updatedAt', {
-    skip,
-    limit,
-    favorite,
-  }).populate('owner', 'email');
+    const result = await Contact.find(
+      { owner, favorite },
+      "-createdAt -updatedAt",
+      {
+        skip,
+        limit,
+        favorite,
+      }
+    ).populate("owner", "email");
     res.json(result);
   } catch (error) {
     res.status(500).json({
@@ -33,12 +37,11 @@ const getById = async (req, res, next) => {
   }
 };
 
-const postContact  = async (req, res) => {
+const postContact = async (req, res) => {
   const { _id: owner } = req.user;
   const result = await Contact.create({ ...req.body, owner });
   res.status(201).json(result);
 };
-
 
 const deleteContactById = async (req, res, next) => {
   try {

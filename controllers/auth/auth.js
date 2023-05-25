@@ -1,15 +1,14 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-require('dotenv').config();
+require("dotenv").config();
 
 const { SECRET_KEY } = process.env;
 
-const { User } = require('../../models/user');
+const { User } = require("../../models/user");
 
-const { ctrlWrapper, HttpError} = require('../../helpers');
-
+const { ctrlWrapper, HttpError } = require("../../helpers");
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;
@@ -30,30 +29,29 @@ const register = async (req, res, next) => {
 };
 
 const login = async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-        throw HttpError(401, 'Email or password is wrong');
-    }
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw HttpError(401, "Email or password is wrong");
+  }
 
-    const passwordCompare = await bcrypt.compare(password, user.password);
-    if (!passwordCompare) {
-        throw HttpError(401, 'Email or password is wrong');
-    }
+  const passwordCompare = await bcrypt.compare(password, user.password);
+  if (!passwordCompare) {
+    throw HttpError(401, "Email or password is wrong");
+  }
 
-    const payload = {
-        id: user._id,
-    };
+  const payload = {
+    id: user._id,
+  };
 
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '23h' });
-    await User.findByIdAndUpdate(user._id, { token });
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
+  await User.findByIdAndUpdate(user._id, { token });
 
-    res.json({
-        token: token,
-    
-    });
+  res.json({
+    token: token,
+  });
 };
-const current = async (req, res ) => {
+const current = async (req, res) => {
   const { email } = req.user;
   res.json({
     email,
@@ -61,33 +59,35 @@ const current = async (req, res ) => {
 };
 
 const logout = async (req, res) => {
-    const { _id } = req.user;
-    await User.findByIdAndUpdate(_id, { token: '' });
-    res.json({
-        message: 'logout sucsses',
-    });
+  const { _id } = req.user;
+  await User.findByIdAndUpdate(_id, { token: "" });
+  res.json({
+    message: "logout sucsses",
+  });
 };
 
 const updateSubscription = async (req, res) => {
-  const { _id } = req.user
-  const updatedUser = await User.findByIdAndUpdate(_id, req.body, { new: true })
+  const { _id } = req.user;
+  const updatedUser = await User.findByIdAndUpdate(_id, req.body, {
+    new: true,
+  });
 
   if (!updatedUser) {
-    throw HttpError(404, 'Not found')
+    throw HttpError(404, "Not found");
   }
 
-  const { email, subscription } = updatedUser
+  const { email, subscription } = updatedUser;
 
-  res.json({   
-      email,
-      subscription,
-     })
-}
+  res.json({
+    email,
+    subscription,
+  });
+};
 
 module.exports = {
-    register: ctrlWrapper(register),
-    login: ctrlWrapper(login),
-    current: ctrlWrapper(current),
-    logout: ctrlWrapper(logout),
-    subscription: ctrlWrapper(updateSubscription),
+  register: ctrlWrapper(register),
+  login: ctrlWrapper(login),
+  current: ctrlWrapper(current),
+  logout: ctrlWrapper(logout),
+  subscription: ctrlWrapper(updateSubscription),
 };

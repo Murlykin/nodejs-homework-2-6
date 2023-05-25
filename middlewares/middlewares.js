@@ -12,11 +12,9 @@ const validateFavorite = (schema, res, obj, next) => {
   const validationFavorite = schema.validate(obj);
 
   if (validationFavorite.error) {
-    return res
-      .status(400)
-      .json({
-        message: `missing required ${validationFavorite.error.details[0].path[0]} field!!`,
-      });
+    return res.status(400).json({
+      message: `missing required ${validationFavorite.error.details[0].path[0]} field!!`,
+    });
   }
   next();
 };

@@ -1,24 +1,27 @@
-const express = require('express');
+const express = require("express");
 
-const  validateBody  = require('../../middlewares/validateBody');
+const validateBody = require("../../middlewares/validateBody");
 
-const ctrl = require('../../controllers/auth/auth');
+const ctrl = require("../../controllers/auth/auth");
 
-const { schemas } = require('../../models/user');
-const { authenticate } = require('../../middlewares/authenticate');
+const { schemas } = require("../../models/user");
+const { authenticate } = require("../../middlewares/authenticate");
 
 const router = express.Router();
 
-router.post('/register', validateBody(schemas.registerSchema), ctrl.register);
+router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 
-router.post('/login', validateBody(schemas.registerSchema), ctrl.login);
+router.post("/login", validateBody(schemas.registerSchema), ctrl.login);
 
-router.get('/current', authenticate, ctrl.current);
+router.get("/current", authenticate, ctrl.current);
 
-router.post('/logout', authenticate, ctrl.logout);
+router.post("/logout", authenticate, ctrl.logout);
 
-router.patch('/users', authenticate, validateBody(schemas.updateSubscriptionSchema),
-    ctrl.subscription);
-
+router.patch(
+  "/users",
+  authenticate,
+  validateBody(schemas.updateSubscriptionSchema),
+  ctrl.subscription
+);
 
 module.exports = router;
