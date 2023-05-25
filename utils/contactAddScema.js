@@ -13,7 +13,11 @@ const favoriteSchema = Joi.object({
     .messages({ "any.required": "missing field favorite" }),
 });
 
-module.exports = {
+const schemas = {
   addScema,
-  favoriteSchema, 
+  favoriteSchema,
+};
+
+module.exports = {
+schemas,
 };

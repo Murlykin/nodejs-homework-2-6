@@ -1,10 +1,11 @@
 const Contact = require("../models/contact");
-const { addScema, favoriteSchema } = require("../utils/contactAddScema");
+const {  favoriteSchema } = require("../utils/contactAddScema");
 const { HttpError } = require("../helpers");
 
 const getContact = async (req, res) => {
+  const { _id: owner } = req.user;
   try {
-    const result = await Contact.find();
+    const result = await Contact.find({ owner });
     res.json(result);
   } catch (error) {
     res.status(500).json({
@@ -26,26 +27,12 @@ const getById = async (req, res, next) => {
   }
 };
 
-const postContact = async (req, res, next) => {
-  try {
-    const { name, email, phone, favorite } = req.body;
-    const newContact = { name, email, phone, favorite };
-    const { error } = addScema.validate(newContact);
-
-    if (error) {
-      res
-        .status(400)
-        .json({
-          message: `missing required ${error.details[0].path[0]} field!!!`,
-        });
-      return;
-    }
-    const result = await Contact.create(newContact);
-    res.status(201).json(result);
-  } catch (error) {
-    next(error);
-  }
+const postContact  = async (req, res) => {
+  const { _id: owner } = req.user;
+  const result = await Contact.create({ ...req.body, owner });
+  res.status(201).json(result);
 };
+
 
 const deleteContactById = async (req, res, next) => {
   try {
