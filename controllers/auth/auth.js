@@ -53,10 +53,11 @@ const login = async (req, res) => {
     
     });
 };
-const current = (req, res) => {
-    const { email, subscription } = req.user;
-
-    res.json({ email, subscription });
+const current = async (req, res ) => {
+  const { email } = req.user;
+  res.json({
+    email,
+  });
 };
 
 const logout = async (req, res) => {
