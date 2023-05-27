@@ -915,3 +915,14 @@ POST /users/logout 27-05-2023_11:27:21
 POST /users/login 27-05-2023_11:28:28
 POST /users/logout 27-05-2023_11:28:39
 POST /users/logout 27-05-2023_11:40:26
+POST /users/login 27-05-2023_11:43:44
+POST /users/logout 27-05-2023_11:43:53
+POST /users/login 27-05-2023_11:44:14
+POST /users/logout 27-05-2023_11:44:28
+POST /users/login 27-05-2023_11:45:03
+POST /users/logout 27-05-2023_11:45:21
+GET /api/current 27-05-2023_11:49:41
+GET /users/current 27-05-2023_11:50:12
+POST /users/login 27-05-2023_11:50:19
+GET /users/current 27-05-2023_11:50:49
+GET /users/current 27-05-2023_11:52:16
