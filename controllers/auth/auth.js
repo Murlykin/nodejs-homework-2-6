@@ -23,8 +23,10 @@ const register = async (req, res, next) => {
   const newUser = await User.create({ ...req.body, password: hashPassword });
 
   res.status(201).json({
-    email: newUser.email,
-    subscription: newUser.subscription,
+    user: {
+      email: newUser.email,
+      subscription: newUser.subscription,
+    },
   });
 };
 
@@ -49,6 +51,10 @@ const login = async (req, res) => {
 
   res.json({
     token: token,
+    user: {
+      email: user.email,
+      subscription: user.subscription,
+    },
   });
 };
 const current = async (req, res) => {
@@ -61,7 +67,7 @@ const current = async (req, res) => {
 const logout = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: "" });
-  res.json({
+  res.status(204).json({
     message: "logout sucsses",
   });
 };
