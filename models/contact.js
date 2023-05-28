@@ -16,14 +16,18 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
   },
-  { versionKey: false,  }
-  );
-
+  { versionKey: false }
+);
 
 contactSchema.post("save", (error, data, next) => {
-    error.status = 400;
-    next();
+  error.status = 400;
+  next();
 });
 
 const Contact = model("contact", contactSchema);
