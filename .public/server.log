@@ -926,3 +926,9 @@ GET /users/current 27-05-2023_11:50:12
 POST /users/login 27-05-2023_11:50:19
 GET /users/current 27-05-2023_11:50:49
 GET /users/current 27-05-2023_11:52:16
+PATCH /users/login 28-05-2023_03:12:10
+PATCH /users/avatars 28-05-2023_03:12:49
+POST /users/login 28-05-2023_03:13:16
+PATCH /users/avatars 28-05-2023_03:13:32
+PATCH /users/avatars 28-05-2023_03:15:24
+PATCH /users/avatars 28-05-2023_04:58:30
