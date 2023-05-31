@@ -22,10 +22,10 @@ const userSchema = new Schema(
     },
     token: { type: String, default: "" },
     
-    avatarUrl: {
-      type: String,
-      required: [true, "avatarUrl is required"],
-    },
+        avatarURL: {
+            type: String,
+            required: true,
+        },
   },
   { versionKey: false, timestamps: true }
 );
