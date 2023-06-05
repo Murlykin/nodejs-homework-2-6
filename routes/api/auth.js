@@ -24,6 +24,12 @@ router.patch(
   ctrl.subscription
 );
 
+router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+
+router.get("/verify/:verificationToken", ctrl.verifyEmail);
+
+router.post('/verify', ctrl.resendEmail);
+
 router.patch('/avatars', authenticate, upload.single('avatar'), ctrl.avatar);
 
 module.exports = router;
